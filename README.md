@@ -3,16 +3,16 @@ Tuise, the TUI bot.
 
 # functionalities & responsibilities
 
-Weather: Kenny L.
-Traffic: Stephen
-Speech: Stefan
-FAQ: Filip
-Customer service: Kurty
-Directions: Igor R.
-Excursies: Yentl
-Culture: Joery
-Translation: Igor V.
-Animatie: Kenny C.
-Lost & found voor kinderen: Frederik
-Flight info: Maggy
-User: 
+Weather: Kenny L.\n
+Traffic: Stephen\n
+Speech: Stefan\n
+FAQ: Filip\n
+Customer service: Kurty\n
+Directions: Igor R.\n
+Excursies: Yentl\n
+Culture: Joery\n
+Translation: Igor V.\n
+Animatie: Kenny C.\n
+Lost & found voor kinderen: Frederik\n
+Flight info: Maggy\n
+User: Stephen
