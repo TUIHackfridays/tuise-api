@@ -1,0 +1,67 @@
+swagger: '2.0'
+info:
+  title: Tuise Speech API
+  description: Transform audio to text
+  version: "1.0.0"
+host: api.tuise.eu
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /speech-to-text:
+    post:
+      summary: Transform spoken audio to text
+      parameters:
+        - name: speech
+          required: true
+          in: body
+          description: The speech object to translate to text
+          schema:
+            $ref: '#/definitions/SpeechInput'
+      tags:
+        - speech
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RecognizedSpeech'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  SpeechInput:
+    type: object
+    properties:
+      language:
+        type: string
+        description: Tye ISO language code of the spoken language
+      audio:
+        type: string
+        format: byte
+        description: The binary audio data
+  RecognizedSpeech:
+    type: object
+    properties:
+      sentence:
+        type: string
+        description: The recognized spoken sentence
+      language:
+        type: string
+        description: The recognized language
+
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
