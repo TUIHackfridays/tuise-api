@@ -1,0 +1,96 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: TUIse API - traffic
+  description: the TUIse traffic API
+  version: "0.0.1"
+# the domain of the service
+host: api.tui.se
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /traffic/incidents/area:
+    get:
+      summary: Traffic data from a destination
+      description: |
+        The traffic endpoint returns information about the trafic at a given location. ]]
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: radius
+          in: query
+          description: Radius in km from location
+          required: true
+          type: number
+          format: float
+      tags:
+        - Products
+      responses:
+        200:
+          description: An array of traffic incidents
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TrafficIncident'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  TrafficIncident:
+    type: object
+    properties:
+      incident_id:
+        type: string
+        description: Unique identifier representing a specific traffic incident for a given latitude & longitude
+      type:
+        type: integer
+        description: The type of incident ( construction, car crash, ... )
+      description:
+        type: string
+        description: Description of traffic incident.
+      severity:
+        type: integer
+        description: Display name of product.
+      location:
+        $ref: '#/definitions/Location'
+      detour:
+        type: string
+        description: Detour information.
+  Location:
+    type: object
+    properties:
+      latitude:
+        type: number
+        format: double
+        description: the latitude of a location
+      longitude:
+        type: number
+        format: double
+        description: the longitude of a location
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
