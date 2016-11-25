@@ -1,0 +1,122 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.0.1"
+  title: Customer Service API
+  
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+  - text/xml
+produces:
+  - application/json
+  - text/html
+
+# Describe your paths here
+paths:
+  /customerservice/greeting/{customerId}: 
+    get:
+      description: 
+        Gets 'WelcomeInfo' of the given 'Customer' objects.
+      parameters:
+        - name: customerId
+          in: path
+          type : integer
+          description: ID of the customer
+          required: true
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/welcome'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /customerservice/checkstatus/{customerId}: 
+    get:
+      description: |
+        Gets 'Checkstatus' of the given 'Customer'.
+      parameters:
+        - name: customerId
+          in: path
+          type : integer
+          description: ID of the customer
+          required: true
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/checkstatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /customerservice/checkstatus/in/{customerId}: 
+    put:
+      description: |
+        Put the status to in for the given customerId.
+      parameters:
+        - name: customerId
+          in: path
+          type : integer
+          description: ID of the customer
+          required: true
+      responses:
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            $ref: '#/definitions/checkstatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /customerservice/checkstatus/out/{customerId}: 
+    put:
+      description: |
+        Put the status to in for the given customerId.
+      parameters:
+        - name: customerId
+          in: path
+          type : integer
+          description: ID of the customer
+          required: true
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/checkstatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+definitions:
+  checkstatus:
+    type: object
+    properties:
+      name:
+        type: string
+  welcome:
+    type: object
+    properties:
+      name:
+        type: string
+  error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
