@@ -1,0 +1,102 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "1.0.0"
+  title: Translation
+schemes:
+  - http
+consumes:
+  - application/x-www-form-urlencoded
+produces: 
+  - application/json,
+  - application/xml
+host: localhost
+# Describe your paths here
+paths:
+  /:
+  # This is a path endpoint. Change it.
+    # This is a HTTP operation
+  
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Gets `Translation` string.
+      # This is array of GET operation parameters:
+      
+      parameters:
+        # An example parameter that is in query and is required
+        - name: text
+          in: query
+          description: Text to translate
+          required: true
+          type: string
+          minimum: 3
+          maximum: 1000
+        - name: from
+          in: query
+          description: language from
+          required: true
+          type: string
+          minimum: 2
+          maximum: 2
+        - name: to
+          in: query
+          description: language to
+          required: true
+          type: string
+          minimum: 2
+          maximum: 2
+        - name: encoding
+          in: query
+          type: string
+          description: encoding type
+          default: "UTF-8"
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: Translated text
+            type: string
+        500:
+          description: Application error
+          schema:
+            title: You have an error in your application
+            type: string
+  /fill:
+    put:
+      parameters:
+        - name: translation
+          in: body
+          description: The translation JSON you want to post
+          schema:
+            $ref: '#/definitions/Translation'
+          required: true
+      responses:
+        200:
+          description: Updates the translation
+        500:
+          description: Application error
+          schema:
+            title: You have an error in your application
+            type: string
+
+definitions:
+  Translation:
+    type: object
+    properties:
+      text:
+        type: string
+      from:
+        type: string
+      to:
+        type: string
+      encoding:
+        type: string
