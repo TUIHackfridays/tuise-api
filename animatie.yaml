@@ -1,0 +1,125 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: TUIse animation info
+  description: Ophalen van de animatie info van een hotel
+  version: "1.0.0"
+# the domain of the service
+# host: api.tuise.com
+host: api.tuise.eu
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /entertainment/overview:
+    get:
+      summary: overview entertainments
+      description: get an overview of the available entertainment activities.
+      parameters:
+        - name: datetime
+          in: query
+          description: for when do you want to see the entertainment things
+          required: true
+          type: string
+        - name: activityType
+          in: query
+          description: for when do you want to see the entertainment things
+          required: false
+          type: string
+      responses:
+        200:
+          description: An array of activities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Activity'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /entertainment/order:
+    post:
+      summary: place an order
+      description: place an order
+      parameters:
+        - in: body
+          name: body
+          description: book an animation
+          required: false
+          schema:
+            $ref: "#/definitions/Order"
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Activity'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Activity:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: bla
+      name:
+        type: string
+        description: bla
+      description:
+        type: string
+        description: bla
+      startdatetime:
+        type: string
+        format: date-time
+        description: bla
+      enddatetime:
+        type: string
+        format: date-time
+        description: bla
+      type:
+        type: string
+        description: type of activity
+      capacity:
+        type: integer
+        format: int32
+        description: bla
+      booked:
+        type: integer
+        format: int32
+        description: bla
+      free:
+        type: integer
+        format: int32
+        description: bla
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      activityId:
+        type: integer
+        format: int32
+      numerOfPersons:
+        type: integer
+        format: int32
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
