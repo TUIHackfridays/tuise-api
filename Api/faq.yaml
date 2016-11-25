@@ -1,0 +1,198 @@
+swagger: '2.0'
+info:
+  title: FAQ API
+  description: Move your app forward with the FAQ API
+  version: "1.0.0"
+# the domain of the service
+host: api.tuihackfridays.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /topics/{id}:
+    get:
+      summary: FAQ topics
+      description: |
+        Get a specific FAQ topic
+      parameters:
+        - name: id
+          in: path
+          description: Get a topic by id
+          type: integer
+          format: int32
+          required: true
+      tags:
+        - FAQ
+        - Topic
+      responses:
+        200:
+          description: A FAQ topic
+          schema:
+              $ref: '#/definitions/Topic'
+        404:
+          description: Topic not found
+          schema:
+            $ref: '#/definitions/ResourceNotFound'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: add a new topic
+      description: create a new topic
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          format: int32
+          required: true
+        - name: body
+          in: body
+          description: topic
+          schema:
+            $ref: '#/definitions/Topic'
+          required: true
+      responses:
+        201:
+          description: created topic
+          schema:
+            $ref: '#/definitions/Topic'
+  /topics:
+    get:
+      summary: get FAQ topics
+      description: |
+        Get all FAQ topic
+      tags:
+        - FAQ
+        - Topic
+      responses:
+        200:
+          description: An array of topics
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Topic'
+        201:
+          description: succesfully created a topic
+          schema:
+            $ref: '#/definitions/Create'
+        404:
+          description: Topic not found
+          schema:
+            $ref: '#/definitions/ResourceNotFound'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /questions:
+    get:
+      summary: Frequently Asked Questions
+      description: |
+        The questions endpoint returns all the frequently asked questions for given topic
+      parameters:
+        - name: topic
+          in: query
+          description: topic id you want to receive the questions for
+          required: true
+          type: integer
+          format: int32
+      tags:
+        - Products
+      responses:
+        200:
+          description: An array of questions
+          schema:
+              $ref: '#/definitions/Questions'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /questions/{id}:
+    get:
+      summary: Frequently Asked Questions
+      description: |
+        The questions endpoint return the request question topic
+      parameters:
+        - name: id
+          in: path
+          description: Question ID
+          required: true
+          type: integer
+          format: int32
+      tags:
+        - FAQ
+      responses:
+        200:
+          description: The question object
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FAQ'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  #OBJECTS
+  Topic:
+    type: object
+    properties:
+      id: 
+        type: integer
+        format: int32
+      title:
+        type: string
+  FAQ:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      question:
+        type: string
+      answer:
+        type: string
+      helpful:
+        type: integer
+        format: int32
+  Questions:
+    type: array
+    items:
+      $ref: '#/definitions/Question'
+  Question:
+    type: object
+    properties:
+      id:
+        type: string
+      description:
+        type: string
+  ResourceNotFound:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  Create:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      description:
+        type: string
