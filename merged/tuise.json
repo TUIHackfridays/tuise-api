@@ -1,0 +1,1710 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "TUIse",
+    "description": "A bot designed by TUI HackFridays\n"
+  },
+  "host": "api.tuise.eu",
+  "basePath": "/v1",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded"
+  ],
+  "produces": [
+    "application/json",
+    "application/json,",
+    "application/xml"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic",
+      "description": "HTTP Basic Authentication. Works over `HTTP` and `HTTPS`"
+    }
+  },
+  "definitions": {
+    "Activity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "bla"
+        },
+        "name": {
+          "type": "string",
+          "description": "bla"
+        },
+        "description": {
+          "type": "string",
+          "description": "bla"
+        },
+        "startdatetime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "bla"
+        },
+        "enddatetime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "bla"
+        },
+        "type": {
+          "type": "string",
+          "description": "type of activity"
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "bla"
+        },
+        "booked": {
+          "type": "integer",
+          "format": "int32",
+          "description": "bla"
+        },
+        "free": {
+          "type": "integer",
+          "format": "int32",
+          "description": "bla"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "activityId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numerOfPersons": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "Route": {
+      "type": "object",
+      "properties": {
+        "route_id": {
+          "type": "string",
+          "description": "Unique identifier."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of product."
+        },
+        "time": {
+          "type": "number",
+          "description": "Display travel time."
+        },
+        "distance": {
+          "type": "integer",
+          "description": "Description of distance."
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/step"
+          },
+          "description": "list of steps"
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "description": "Unique identifier of step."
+        },
+        "steptime": {
+          "type": "string",
+          "description": "display time of step"
+        },
+        "stepdistance": {
+          "type": "string",
+          "description": "Display distance of step."
+        },
+        "street": {
+          "type": "string",
+          "description": "display name of street"
+        }
+      }
+    },
+    "Excursion": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "unique code that identifies the excursion"
+        },
+        "name": {
+          "type": "string",
+          "description": "name of the execursion"
+        },
+        "summary": {
+          "type": "string",
+          "description": "a summary text describing the excursion"
+        },
+        "type": {
+          "type": "string",
+          "description": "type of the excursion"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "coordinates of the excursion."
+          }
+        },
+        "location": {
+          "$ref": "#/definitions/Location"
+        },
+        "startDateValid": {
+          "type": "string",
+          "format": "date",
+          "description": "start date when the excursion becomes available to receive reservations"
+        },
+        "endDateValid": {
+          "type": "string",
+          "format": "date",
+          "description": "end date when the excursion becomes unavailable for reservations"
+        },
+        "classification": {
+          "type": "string",
+          "description": "the classification for the excursion"
+        },
+        "uniqueSellingPoints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "thumbnail": {
+          "type": "string"
+        },
+        "small": {
+          "type": "string"
+        },
+        "medium": {
+          "type": "string"
+        },
+        "large": {
+          "type": "string"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Location code."
+        },
+        "name": {
+          "type": "string",
+          "description": "Location name."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of location, possible values = ['City', 'Region', 'Country', 'Continent', '']."
+        },
+        "generic": {
+          "type": "boolean",
+          "description": "Is the location generic?"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the location."
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "Coordinates of the location."
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of links to images of a location."
+        },
+        "parentLocation": {
+          "$ref": "#/definitions/Location"
+        },
+        "childLocations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location"
+          },
+          "description": "Child locations of the current location."
+        },
+        "info": {
+          "type": "string",
+          "description": "Information about the location."
+        },
+        "nearby": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of nearby stuff of this location."
+        }
+      }
+    },
+    "Pax": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Pax title."
+        },
+        "name": {
+          "type": "string",
+          "description": "Pax name."
+        },
+        "firstname": {
+          "type": "string",
+          "description": "Pax firstname"
+        },
+        "birthdate": {
+          "type": "string",
+          "format": "date",
+          "description": "Pax birthdate"
+        }
+      }
+    },
+    "Reservation": {
+      "type": "object",
+      "required": [
+        "paxs"
+      ],
+      "properties": {
+        "paxs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pax"
+          },
+          "description": "Pax for reservation."
+        },
+        "excursions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Excursion"
+          },
+          "description": "Excursions for reservation."
+        }
+      }
+    },
+    "Topic": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "FAQ": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "helpful": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Question"
+      }
+    },
+    "Question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "ResourceNotFound": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Create": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "SpeechInput": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "Tye ISO language code of the spoken language"
+        },
+        "audio": {
+          "type": "string",
+          "format": "byte",
+          "description": "The binary audio data"
+        }
+      }
+    },
+    "RecognizedSpeech": {
+      "type": "object",
+      "properties": {
+        "sentence": {
+          "type": "string",
+          "description": "The recognized spoken sentence"
+        },
+        "language": {
+          "type": "string",
+          "description": "The recognized language"
+        }
+      }
+    },
+    "TrafficIncident": {
+      "type": "object",
+      "properties": {
+        "incident_id": {
+          "type": "string",
+          "description": "Unique identifier representing a specific traffic incident for a given latitude & longitude"
+        },
+        "type": {
+          "type": "integer",
+          "description": "The type of incident ( construction, car crash, ... )"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of traffic incident."
+        },
+        "severity": {
+          "type": "integer",
+          "description": "Display name of product."
+        },
+        "location": {
+          "$ref": "#/definitions/Location"
+        },
+        "detour": {
+          "type": "string",
+          "description": "Detour information."
+        }
+      }
+    },
+    "Translation": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "encoding": {
+          "type": "string"
+        }
+      }
+    },
+    "Weather": {
+      "type": "object",
+      "properties": {
+        "degrees": {
+          "type": "number",
+          "format": "double"
+        },
+        "weatherState": {
+          "type": "string"
+        },
+        "humidity": {
+          "type": "number",
+          "format": "double"
+        },
+        "icon": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/v1/entertainment/overview": {
+      "get": {
+        "summary": "overview entertainments",
+        "description": "get an overview of the available entertainment activities.",
+        "parameters": [
+          {
+            "name": "datetime",
+            "in": "query",
+            "description": "for when do you want to see the entertainment things",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "activityType",
+            "in": "query",
+            "description": "for when do you want to see the entertainment things",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of activities",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Activity"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/entertainment/order": {
+      "post": {
+        "summary": "place an order",
+        "description": "place an order",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "book an animation",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Activity"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/directions": {
+      "get": {
+        "summary": "Directions",
+        "description": "The directions endpoint returns information\nbased on a given start an end location.\n",
+        "parameters": [
+          {
+            "name": "Start-point",
+            "in": "query",
+            "description": "Start point .",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "End-point",
+            "in": "query",
+            "description": "End point.",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "Mode",
+            "in": "query",
+            "description": "Travel mode .",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Directions"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of directions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Route"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Will send `Authenticated` if authentication is succesful, otherwise it will send `Unauthorized`"
+          }
+        }
+      }
+    },
+    "/excursions": {
+      "get": {
+        "tags": [
+          "excursion"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Lists `Excursion` objects. Availability is checked if a start & end date are provided.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Excursion"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "description": "limit the list of excursions",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "offset",
+            "description": "offset the list of excursions",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "codes",
+            "description": "comma seperated list of hotels",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startdate",
+            "in": "query",
+            "description": "start date (will trigger availability)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "end date, (will trigger availability)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ]
+      }
+    },
+    "/excursions/{region}": {
+      "get": {
+        "tags": [
+          "excursion"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Lists `Excursion` objects limited by region. Availability is checked if a start & end date are provided.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Excursion"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "path",
+            "description": "`Location` code for the region",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "description": "limit the list of excursions",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "offset",
+            "description": "offset the list of excursions",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "codes",
+            "description": "comma seperated list of hotels",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startdate",
+            "in": "query",
+            "description": "start date (will trigger availability)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "end date, (will trigger availability)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ]
+      }
+    },
+    "/excursions/{region}/{city}": {
+      "get": {
+        "tags": [
+          "excursion"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Lists `Excursion` objects limited by region. Availability is checked if a start & end date are provided.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Excursion"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "path",
+            "description": "`Location` code for the region",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "in": "path",
+            "description": "`Location` code for the city",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "description": "limit the list of excursions",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "offset",
+            "description": "offset the list of excursions",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "codes",
+            "description": "comma seperated list of hotels",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startdate",
+            "in": "query",
+            "description": "start date (will trigger availability)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "end date, (will trigger availability)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ]
+      }
+    },
+    "/excursions/code/{code}": {
+      "get": {
+        "tags": [
+          "excursion"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Returns an `Excursion` object for the given code and optionally for the given dates.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Excursion"
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "unique code for the excursion",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "startdate",
+            "in": "query",
+            "description": "start date",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "end date",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ]
+      }
+    },
+    "/locations": {
+      "get": {
+        "tags": [
+          "location",
+          "reference"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "List of  `Locations` (continents with child countries).\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        }
+      }
+    },
+    "/locations/{continent}": {
+      "get": {
+        "tags": [
+          "location",
+          "reference"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "`Location` object (type Continent) with child countries and grandchild regions.\nBetween each level of specified type `Location` objects it's possible that there are multiple generic `Location` objects.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "continent",
+            "in": "path",
+            "description": "`Location` code for the continent",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/locations/{continent}/{country}": {
+      "get": {
+        "tags": [
+          "location",
+          "reference"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "`Location` object (type Country) with child regions and grandchild cities.\n Between each level of specified type `Location` objects it's possible that there are multiple generic `Location` objects.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "continent",
+            "in": "path",
+            "description": "`Location` code for the continent",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "country",
+            "in": "path",
+            "description": "`Location` code for the country",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/locations/{continent}/{country}/{region}": {
+      "get": {
+        "tags": [
+          "location"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "`Location` object (type Region) with child cities and possible grandchild generic locations.\n Between each level of specified type `Location` objects it's possible that there are multiple generic `Location` objects.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "continent",
+            "in": "path",
+            "description": "`Location` code for the continent",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "country",
+            "in": "path",
+            "description": "`Location` code for the country",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "path",
+            "description": "`Location` code for the region",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/locations/{continent}/{country}/{region}/{city}": {
+      "get": {
+        "tags": [
+          "location",
+          "reference"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "`Location` object (type City) with possible child generic locations.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "continent",
+            "in": "path",
+            "description": "`Location` code for the continent",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "country",
+            "in": "path",
+            "description": "`Location` code for the country",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "path",
+            "description": "`Location` code for the region",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "in": "path",
+            "description": "`Location` code for the city",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/reservations": {
+      "get": {
+        "tags": [
+          "excursion",
+          "reservation"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Get Rservation price object.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reservation"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "reservation",
+            "in": "body",
+            "description": "Created reservation object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "excursion",
+          "reservation"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Book Reservation object.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reservation"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "reservation",
+            "in": "body",
+            "description": "Created reservation object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "excursion",
+          "reservation"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Amend Reservation object.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reservation"
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised response",
+            "schema": {
+              "type": "string",
+              "description": "Not Authourised to access this endpoint or resource."
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "description": "Locale",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "reservation",
+            "in": "body",
+            "description": "Created reservation object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/topics/{id}": {
+      "get": {
+        "summary": "FAQ topics",
+        "description": "Get a specific FAQ topic\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Get a topic by id",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          }
+        ],
+        "tags": [
+          "FAQ",
+          "Topic"
+        ],
+        "responses": {
+          "200": {
+            "description": "A FAQ topic",
+            "schema": {
+              "$ref": "#/definitions/Topic"
+            }
+          },
+          "404": {
+            "description": "Topic not found",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFound"
+            }
+          },
+          "default": {
+            "description": "Unexpected Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "add a new topic",
+        "description": "create a new topic",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "topic",
+            "schema": {
+              "$ref": "#/definitions/Topic"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "created topic",
+            "schema": {
+              "$ref": "#/definitions/Topic"
+            }
+          }
+        }
+      }
+    },
+    "/v1/topics": {
+      "get": {
+        "summary": "get FAQ topics",
+        "description": "Get all FAQ topic\n",
+        "tags": [
+          "FAQ",
+          "Topic"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of topics",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Topic"
+              }
+            }
+          },
+          "201": {
+            "description": "succesfully created a topic",
+            "schema": {
+              "$ref": "#/definitions/Create"
+            }
+          },
+          "404": {
+            "description": "Topic not found",
+            "schema": {
+              "$ref": "#/definitions/ResourceNotFound"
+            }
+          },
+          "default": {
+            "description": "Unexpected Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/questions": {
+      "get": {
+        "summary": "Frequently Asked Questions",
+        "description": "The questions endpoint returns all the frequently asked questions for given topic\n",
+        "parameters": [
+          {
+            "name": "topic",
+            "in": "query",
+            "description": "topic id you want to receive the questions for",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of questions",
+            "schema": {
+              "$ref": "#/definitions/Questions"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/questions/{id}": {
+      "get": {
+        "summary": "Frequently Asked Questions",
+        "description": "The questions endpoint return the request question topic\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Question ID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "FAQ"
+        ],
+        "responses": {
+          "200": {
+            "description": "The question object",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FAQ"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/speech-to-text": {
+      "post": {
+        "summary": "Transform spoken audio to text",
+        "parameters": [
+          {
+            "name": "speech",
+            "required": true,
+            "in": "body",
+            "description": "The speech object to translate to text",
+            "schema": {
+              "$ref": "#/definitions/SpeechInput"
+            }
+          }
+        ],
+        "tags": [
+          "speech"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of products",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RecognizedSpeech"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/traffic/incidents/area": {
+      "get": {
+        "summary": "Traffic data from a destination",
+        "description": "The traffic endpoint returns information about the trafic at a given location. ]]\n",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "Latitude component of location.",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "Longitude component of location.",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "description": "Radius in km from location",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          }
+        ],
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of traffic incidents",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TrafficIncident"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/fill": {
+      "put": {
+        "parameters": [
+          {
+            "name": "translation",
+            "in": "body",
+            "description": "The translation JSON you want to post",
+            "schema": {
+              "$ref": "#/definitions/Translation"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updates the translation"
+          },
+          "500": {
+            "description": "Application error",
+            "schema": {
+              "title": "You have an error in your application",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/weather": {
+      "get": {
+        "description": "Gets `Weather` objects.\nParams of location and date.\n",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "Latitude component of location.",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "Longitude component of location.",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The day you want to know the weather of.",
+            "required": true,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Weather"
+            }
+          },
+          "404": {
+            "description": "Unsuccesful response",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

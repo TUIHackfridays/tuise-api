@@ -1,0 +1,24 @@
+{
+  "name": "swagger-editor",
+  "version": "1.0.0",
+  "description": "swagger editor test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "author": "Délio Amaral",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "minimist": "^1.2.0",
+    "swagger-merge": "^0.3.1",
+    "yaml-js": "^0.1.4"
+  }
+}

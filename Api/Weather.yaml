@@ -39,7 +39,7 @@ paths:
           required: true
           type: string
           format: date-time
-        
+
       # Expected responses for this operation:
       responses:
         # Response code
@@ -48,16 +48,33 @@ paths:
           # A schema describing your response object.
           # Use JSON Schema format
           schema:
-            title: Weather
-            type: object
-            properties:
-                degrees:
-                  type: double
-                weatherState:
-                  type: string
-                humidity:
-                  type: double
-                icon:
-                  type: image
+            $ref: '#/definitions/Weather'
         404:
           description: Unsuccesful response
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Weather:
+    type: object
+    properties:
+      degrees:
+        type: number
+        format: double
+      weatherState:
+        type: string
+      humidity:
+        type: number
+        format: double
+      icon:
+        type: string
+        format: byte
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
