@@ -69,11 +69,11 @@ definitions:
         type: integer
         description: Display name of product.
       location:
-        $ref: '#/definitions/Location'
+        $ref: '#/definitions/LocationCoord'
       detour:
         type: string
         description: Detour information.
-  Location:
+  LocationCoord:
     type: object
     properties:
       latitude:
