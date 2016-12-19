@@ -1,0 +1,24 @@
+{
+  "name": "swagger-apis-merge",
+  "version": "1.0.0",
+  "description": "swagger apis merge",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TUIHackfridays/tuise-api.git"
+  },
+  "keywords": [
+    "swagger", "merge"
+  ],
+  "author": "Délio Amaral",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "minimist": "^1.2.0",
+    "swagger-merge": "^0.3.1",
+    "yaml-js": "^0.1.4"
+  }
+}

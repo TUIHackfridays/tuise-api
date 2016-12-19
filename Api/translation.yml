@@ -11,22 +11,22 @@ schemes:
   - http
 consumes:
   - application/x-www-form-urlencoded
-produces: 
+produces:
   - application/json,
   - application/xml
 host: localhost
 # Describe your paths here
 paths:
-  /:
+  /translations:
   # This is a path endpoint. Change it.
     # This is a HTTP operation
-  
+
     get:
       # Describe this verb here. Note: you can use markdown
       description: |
         Gets `Translation` string.
       # This is array of GET operation parameters:
-      
+
       parameters:
         # An example parameter that is in query and is required
         - name: text
@@ -70,7 +70,7 @@ paths:
           schema:
             title: You have an error in your application
             type: string
-  /fill:
+  /translations/fill:
     put:
       parameters:
         - name: translation
